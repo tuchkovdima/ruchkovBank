@@ -1,0 +1,47 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_root"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <TextView
+        android:id="@+id/textViewAlert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Авторизация"
+        android:layout_gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/textViewAlertDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Введите Ваш логин и пароль"
+        android:layout_gravity="center"
+        />
+
+    <EditText
+        android:id="@+id/loginetxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="Логин">
+
+        <requestFocus />
+
+    </EditText>
+
+    <EditText
+        android:id="@+id/passwordetxt"
+        android:inputType="textPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="Пароль">
+
+    <requestFocus />
+
+    </EditText>
+
+</LinearLayout>

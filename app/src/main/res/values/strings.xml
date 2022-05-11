@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">WorldSkills Bank</string>
+
+    <string name="btn_for_1">Отделения и банкоматы</string>
+    <string name="btn_for_2">Курсы валют</string>
+    <string name="mainText_enter">Войти</string>
+
+    <string name="bankPlacesName">Отделения и банкоматы</string>
+    <string name="application_name">DimaBank</string>
+</resources>
