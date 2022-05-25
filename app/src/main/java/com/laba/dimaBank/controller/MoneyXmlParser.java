@@ -1,22 +1,24 @@
-package com.laba.dimaBank.Currencies;
+package com.laba.dimaBank.controller;
+
+import com.laba.dimaBank.model.GetMoney;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 import java.util.ArrayList;
 import java.io.StringReader;
 
-public class ValuteXmlParser
+public class MoneyXmlParser
 {
 
     // Список валют после обработки
-    private ArrayList<Valute> valutes;
+    private ArrayList<GetMoney> valutes;
 
-    public ValuteXmlParser()
+    public MoneyXmlParser()
     {
         valutes = new ArrayList<>();
     }
 
-    public ArrayList<Valute> getValutes()
+    public ArrayList<GetMoney> getValutes()
     {
         return valutes;
     }
@@ -25,7 +27,7 @@ public class ValuteXmlParser
     public boolean parse(String xmlData)
     {
         boolean status = true;
-        Valute currentValute = null;
+        GetMoney currentValute = null;
         boolean inEntry = false;
         String textValue = "";
 
@@ -51,7 +53,7 @@ public class ValuteXmlParser
                         if("valute".equalsIgnoreCase(tagName))
                         {  // Проверяем название тэга, чтобы он совпадал с "valute" (РЕГИСТР НЕ ВАЖЕН)
                             inEntry = true; // Если условие верно, отмечаем переменную true - записывается новый объект
-                            currentValute = new Valute();// Очищаем currentValute и подготавливаем его для новой записи валюты
+                            currentValute = new GetMoney();// Очищаем currentValute и подготавливаем его для новой записи валюты
                         }
                         break;
                     case XmlPullParser.TEXT:

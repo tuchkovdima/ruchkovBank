@@ -1,9 +1,9 @@
-package com.laba.dimaBank.Currencies;
+package com.laba.dimaBank.controller;
 
 import android.content.Context;
 import android.widget.ImageView;
 
-public class Flag
+public class FlagPicture
 {
     private String CurrencyName;
     private String CountryName;
@@ -18,7 +18,7 @@ public class Flag
         return CountryName;
     }
 
-    public Flag (String CurrencyName, String CountryName)
+    public FlagPicture(String CurrencyName, String CountryName)
     {
         this.CurrencyName = CurrencyName;
         this.CountryName = CountryName;

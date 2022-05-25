@@ -1,6 +1,6 @@
-package com.laba.dimaBank.Currencies;
+package com.laba.dimaBank.model;
 
-public class Valute
+public class GetMoney
 {
     private int NumCode;
     private String CharCode;

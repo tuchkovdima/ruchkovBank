@@ -1,4 +1,4 @@
-package com.laba.dimaBank.Currencies;
+package com.laba.dimaBank.controller;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -9,34 +9,36 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.laba.dimaBank.MyApp;
+import com.laba.dimaBank.model.PictureNamePlus;
 import com.laba.dimaBank.R;
+import com.laba.dimaBank.model.GetCurrency;
+
 import java.text.DecimalFormat;
 import java.util.List;
 
 public class ArrayCurrencyAdapter extends BaseAdapter
 {
     private Context context;
-    private MyApp myApp;
-    private List<Flag> flagList;
+    private PictureNamePlus pictureNamePlus;
+    private List<FlagPicture> flagList;
 
     public ArrayCurrencyAdapter(Context context)
     {
         this.context = context;
-        myApp = (MyApp) context.getApplicationContext();
-        flagList = myApp.getFlagList();
+        pictureNamePlus = (PictureNamePlus) context.getApplicationContext();
+        flagList = pictureNamePlus.getFlagList();
     }
 
     @Override
     public int getCount()
     {
-        return myApp.sizeCurrency();
+        return pictureNamePlus.sizeCurrency();
     }
 
     @Override
     public Object getItem(int position)
     {
-        return myApp.getBankPlace(position);
+        return pictureNamePlus.getBankPlace(position);
     }
 
     @Override
@@ -65,7 +67,7 @@ public class ArrayCurrencyAdapter extends BaseAdapter
         TextView textViewCurrencySell = (TextView) liner.findViewById(R.id.currencySellValue);
         TextView textViewCurrencySellArrow = (TextView) liner.findViewById(R.id.currencySellArrow);
 
-        Currency currentCurrency = myApp.getCurrency(position);
+        GetCurrency currentCurrency = pictureNamePlus.getCurrency(position);
 
         // Установка названия и описания валюты
         String currencyName = currentCurrency.getCurrencyName();
@@ -78,7 +80,7 @@ public class ArrayCurrencyAdapter extends BaseAdapter
         textViewCurrencySell.setText(decimalFormat.format(currentCurrency.getSell()));
 
         // Установка флагов
-        for (Flag flag : flagList) {
+        for (FlagPicture flag : flagList) {
             if (flag.getCurrencyName().equalsIgnoreCase(currencyName)) {
                 flag.setImageFromFlag(context, imageViewCurrencyImage);
             }

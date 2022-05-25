@@ -1,4 +1,4 @@
-package com.laba.dimaBank.ActivityClasses;
+package com.laba.dimaBank.view;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -10,10 +10,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-import com.laba.dimaBank.Currencies.Valute;
-import com.laba.dimaBank.Currencies.ValuteXmlParser;
-import com.laba.dimaBank.Downloader;
-import com.laba.dimaBank.MyApp;
+import com.laba.dimaBank.model.GetMoney;
+import com.laba.dimaBank.controller.MoneyXmlParser;
+import com.laba.dimaBank.model.Downloader;
+import com.laba.dimaBank.model.PictureNamePlus;
 import com.laba.dimaBank.R;
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -25,14 +25,14 @@ public class MainActivity extends AppCompatActivity
     TextView usdTextView;
     TextView eurTextView;
     TextView dateTextView;
-    protected MyApp myApp;
+    protected PictureNamePlus pictureNamePlus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        myApp = (MyApp)getApplicationContext();
+        pictureNamePlus = (PictureNamePlus)getApplicationContext();
 
         usdTextView = (TextView) findViewById(R.id.main_usd);
         eurTextView = (TextView) findViewById(R.id.main_eur);
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity
                 {
                     Downloader dw = new Downloader();
                     String xmlFile = dw.downloadXMLFile();
-                    DecimalFormat decimalFormat = new DecimalFormat("##.00");
+                    DecimalFormat decimalFormat = new DecimalFormat("##.00");//Форматирование валюты
 
                     dateTextView.post(new Runnable()
                     {
@@ -63,11 +63,11 @@ public class MainActivity extends AppCompatActivity
                         @Override
                         public void run()
                         {
-                            ValuteXmlParser xParser = new ValuteXmlParser();
+                            MoneyXmlParser xParser = new MoneyXmlParser();
                             if(xParser.parse(xmlFile))
                             {
-                                ArrayList<Valute> valutes = xParser.getValutes();
-                                for (Valute valute : valutes)
+                                ArrayList<GetMoney> valutes = xParser.getValutes();
+                                for (GetMoney valute : valutes)
                                 {
                                     // Получение валюты долара на основную страницу
                                     if ("usd".equalsIgnoreCase(valute.getCharCode()))
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity
 
                                     // Получение валюты евро на основную страницу
                                     }
-                                    else if ("eur".equalsIgnoreCase(valute.getCharCode()))
+                                    else if ("eur".equalsIgnoreCase(valute.getCharCode())) //игнорим регистр
                                     {
                                         double eurValue = valute.getValue();
                                         eurTextView.setText(decimalFormat.format(eurValue));
@@ -98,19 +98,19 @@ public class MainActivity extends AppCompatActivity
 
     public void openFirstActivity(View view)
     {
-        Intent intent = new Intent(this, First.class);
+        Intent intent = new Intent(this, BranchesAndAtms.class);
         startActivity(intent);
     }
 
     public void openSecondActivity(View view)
     {
-        Intent intent = new Intent(this, Second.class);
+        Intent intent = new Intent(this, currenciesOfDifferentCountries.class);
         startActivity(intent);
     }
     public void openThirdActivity(View view)
     {
         LayoutInflater li = LayoutInflater.from(context);
-        View promptsView = li.inflate(R.layout.auth_alert_form, null);
+        View promptsView = li.inflate(R.layout.auth_alert_form_authorization, null);
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
         alertDialogBuilder.setView(promptsView);

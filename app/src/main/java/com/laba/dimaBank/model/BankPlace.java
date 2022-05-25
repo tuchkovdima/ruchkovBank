@@ -1,4 +1,4 @@
-package com.laba.dimaBank.BankPlaces;
+package com.laba.dimaBank.model;
 
 import java.io.Serializable;
 

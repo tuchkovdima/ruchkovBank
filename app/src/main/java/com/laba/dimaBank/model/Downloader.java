@@ -1,4 +1,4 @@
-package com.laba.dimaBank;
+package com.laba.dimaBank.model;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,6 +15,10 @@ public class Downloader
 
     private final String jsonFileUrl;
     private final String xmlFileUrl;
+    StringBuilder stringBuilder = new StringBuilder();
+    BufferedReader reader = null;
+    InputStream stream = null;
+    HttpURLConnection connection = null;
 
     public Downloader()
     {
@@ -36,18 +40,15 @@ public class Downloader
     // Скачивает JSON объект и помещаем его в строку
     public String downloadJSONFile() throws IOException
     {
-        StringBuilder stringBuilder = new StringBuilder();
-        BufferedReader reader = null;
-        InputStream stream = null;
-        HttpURLConnection connection = null;
+
         try
         {
             // Настраиваем подключение перед скачиванием
-            URL url = new URL(jsonFileUrl);
-            connection = (HttpURLConnection) url.openConnection();
-            stream = connection.getInputStream();
-            int HttpResult = connection.getResponseCode();
-            if(HttpResult == HttpURLConnection.HTTP_OK)
+           // URL url = new URL(jsonFileUrl);
+          //  connection = (HttpURLConnection) url.openConnection();
+           // stream = connection.getInputStream();
+           // int HttpResult = connection.getResponseCode();
+           // if(HttpResult == HttpURLConnection.HTTP_OK)
             {
                 // Настраиваем поток входных данных
                 reader = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
@@ -81,10 +82,10 @@ public class Downloader
     // Скачивает XML объект и помещаем его в строку
     public String downloadXMLFile() throws IOException
     {
-        StringBuilder stringBuilder = new StringBuilder();
-        BufferedReader reader = null;
-        InputStream stream = null;
-        HttpsURLConnection connection = null;
+       // StringBuilder stringBuilder = new StringBuilder();
+       // BufferedReader reader = null;
+       // InputStream stream = null;
+       // HttpsURLConnection connection = null;
         try
         {
             // Настраиваем подключение перед скачиванием

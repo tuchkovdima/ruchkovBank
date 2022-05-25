@@ -1,4 +1,4 @@
-package com.laba.dimaBank.BankPlaces;
+package com.laba.dimaBank.view;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -8,32 +8,34 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.laba.dimaBank.MyApp;
+import com.laba.dimaBank.model.PictureNamePlus;
 import com.laba.dimaBank.R;
+import com.laba.dimaBank.model.BankPlace;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class ArrayBankPlaceAdapter extends BaseAdapter
 {
     private Context context;
-    private MyApp myApp;
+    private PictureNamePlus pictureNamePlus;
 
-    public ArrayBankPlaceAdapter(Context context)
+    public ArrayBankPlaceAdapter(Context context) //Адаптер банка массива
     {
         this.context = context;
-        myApp = (MyApp) context.getApplicationContext();
+        pictureNamePlus = (PictureNamePlus) context.getApplicationContext();
     }
 
     @Override
     public int getCount()
     {
-        return myApp.sizeBankPlace();
+        return pictureNamePlus.sizeBankPlace();
     }
 
     @Override
     public Object getItem(int position)
     {
-        return myApp.getBankPlace(position);
+        return pictureNamePlus.getBankPlace(position);
     }
 
     @Override
@@ -52,13 +54,13 @@ public class ArrayBankPlaceAdapter extends BaseAdapter
             convertView = inflater.inflate(R.layout.list_bank_place_item, parent, false);
         }
 
-        LinearLayout liner = (LinearLayout) convertView;
+        LinearLayout liner = (LinearLayout) convertView; //линейная компановка данных о банке
         TextView textViewBankPlaceAddress = (TextView) liner.findViewById(R.id.bankPlaceAddress);
         TextView textViewBankPlaceType = (TextView) liner.findViewById(R.id.bankPlaceType);
         TextView textViewBankPlaceState = (TextView) liner.findViewById(R.id.bankPlaceState);
         TextView textViewBankPlaceWorkHours = (TextView) liner.findViewById(R.id.bankPlaceWorkHours);
 
-        BankPlace currentBankPlace = myApp.getBankPlace(position);
+        BankPlace currentBankPlace = pictureNamePlus.getBankPlace(position);
         String currentTime = getCurrentTime();
 
         textViewBankPlaceAddress.setText(currentBankPlace.getBankPlaceAddress());
@@ -80,7 +82,7 @@ public class ArrayBankPlaceAdapter extends BaseAdapter
         }
     }
 
-    private String getBankPlaceStateInString(String startTime, String closeTime, String currentTime)
+    private String getBankPlaceStateInString(String startTime, String closeTime, String currentTime) //получить состояние банковского места в строке
     {
         int startTimeValue = getMinutesFromTime(startTime);
         int closeTimeValue = getMinutesFromTime(closeTime);
@@ -90,7 +92,7 @@ public class ArrayBankPlaceAdapter extends BaseAdapter
         {
             return "Открыто";
         }
-        else if (currentTimeValue >= startTimeValue)
+        else if (currentTimeValue >= startTimeValue)// currentTimeValue текущее значение времени
         {
             if (currentTimeValue < closeTimeValue)
             {
@@ -127,16 +129,16 @@ public class ArrayBankPlaceAdapter extends BaseAdapter
         return "Часы работы " + startTime + "-" + closeTime;
     }
 
-    private String getCurrentTime()
+    private String getCurrentTime() //получить текущее время
     {
         Calendar calender = Calendar.getInstance();
         System.out.println("Current time => "+calender.getTime());
-        SimpleDateFormat df = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat df = new SimpleDateFormat("HH:mm"); //Простой формат даты
         String formattedDate = df.format(calender.getTime());
         return formattedDate;
     }
 
-    private int getMinutesFromTime(String stringTime)
+    private int getMinutesFromTime(String stringTime) //получить минуты от времени
     {
         int value = -1;
         String[] d = stringTime.split(":");

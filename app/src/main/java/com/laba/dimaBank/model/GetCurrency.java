@@ -1,15 +1,15 @@
-package com.laba.dimaBank.Currencies;
+package com.laba.dimaBank.model;
 
 import java.io.Serializable;
 
-public class Currency implements Serializable
+public class GetCurrency implements Serializable
 {
     private String currencyName;
     private String description;
     private double buy;
     private double sell;
 
-    public Currency(String currencyName, String description, double buy, double sell)
+    public GetCurrency(String currencyName, String description, double buy, double sell)
     {
         this.currencyName = currencyName;
         this.description = description;

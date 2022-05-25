@@ -16,13 +16,13 @@
         android:usesCleartextTraffic="true"
 
         android:theme="@style/dimaBank"
-        android:name="com.laba.dimaBank.MyApp">
+        android:name="com.laba.dimaBank.model.PictureNamePlus">
 
-        <activity android:name="com.laba.dimaBank.ActivityClasses.First"
+        <activity android:name="com.laba.dimaBank.view.BranchesAndAtms"
             android:theme="@style/AppFullScreenTheme" />
-        <activity android:name="com.laba.dimaBank.ActivityClasses.Second"
+        <activity android:name="com.laba.dimaBank.view.currenciesOfDifferentCountries"
             android:theme="@style/AppFullScreenTheme" />
-        <activity android:name="com.laba.dimaBank.ActivityClasses.MainActivity"
+        <activity android:name="com.laba.dimaBank.view.MainActivity"
             android:theme="@style/AppFullScreenTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,35 +1,35 @@
-package com.laba.dimaBank.ActivityClasses;
+package com.laba.dimaBank.view;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-import com.laba.dimaBank.Currencies.ArrayCurrencyAdapter;
-import com.laba.dimaBank.Currencies.Currency;
-import com.laba.dimaBank.Currencies.Valute;
-import com.laba.dimaBank.Currencies.ValuteXmlParser;
-import com.laba.dimaBank.Downloader;
-import com.laba.dimaBank.MyApp;
+import com.laba.dimaBank.controller.ArrayCurrencyAdapter;
+import com.laba.dimaBank.model.GetCurrency;
+import com.laba.dimaBank.model.GetMoney;
+import com.laba.dimaBank.controller.MoneyXmlParser;
+import com.laba.dimaBank.model.Downloader;
+import com.laba.dimaBank.model.PictureNamePlus;
 import com.laba.dimaBank.R;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Second extends AppCompatActivity
+public class currenciesOfDifferentCountries extends AppCompatActivity
 {
     protected ListView listView;
     protected TextView textView;
     protected ArrayCurrencyAdapter adapter;
-    protected MyApp myApp;
+    protected PictureNamePlus pictureNamePlus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_second);
+        setContentView(R.layout.activity_currenciesofdifferentcountries);
         listView = (ListView) findViewById(R.id.currencyList);
         textView = (TextView) findViewById(R.id.currencyDate);
-        myApp = (MyApp)getApplicationContext();
+        pictureNamePlus = (PictureNamePlus)getApplicationContext();
 
         adapter = new ArrayCurrencyAdapter(getApplicationContext());
         listView.setAdapter(adapter);
@@ -47,22 +47,22 @@ public class Second extends AppCompatActivity
                     {
                         public void run()
                         {
-                            ValuteXmlParser parser = new ValuteXmlParser();
+                            MoneyXmlParser parser = new MoneyXmlParser();
                             // Парсим полученные данные в парсере и отдаём ему то что скачали
                             if(parser.parse(content))
                             {
                                 double koff = 0.1;
                                 // Перед добавление старые записи удаляем
-                                myApp.clearCurrency();
+                                pictureNamePlus.clearCurrency();
 
                                 // Получем список всех обработанных валют (!)
-                                ArrayList<Valute> valutes = parser.getValutes();
+                                ArrayList<GetMoney> valutes = parser.getValutes();
                                 // "Ходим" по валютам и добавляем их в отдельный массив объектов и добавляем данные как нам нужно
-                                for (Valute valute : valutes)
+                                for (GetMoney valute : valutes)
                                 {
                                     double value = valute.getValue();
                                     // Новый объект валюты для отображения
-                                    Currency currency = new Currency(
+                                    GetCurrency currency = new GetCurrency(
                                             valute.getCharCode(),
                                             valute.getName() + (valute.getNominal() != 1 ? " x" + valute.getNominal() : ""),
                                             value,
@@ -70,7 +70,7 @@ public class Second extends AppCompatActivity
                                     );
 
                                     // добавляем их в MyApp для отображения на активности
-                                    myApp.addCurrency(currency);
+                                    pictureNamePlus.addCurrency(currency);
                                 }
 
                                 listView.invalidateViews();
